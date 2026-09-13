@@ -47,9 +47,9 @@
         </div>
         <div class="card card-md">
           <div class="card-body">
-            @if(session()->has('loginError'))
+            @if(session()->has('loginMassage'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              {{ session('loginError') }}
+              {{ session('loginMassage') }}
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
@@ -69,11 +69,11 @@
                 <label class="form-label" for="password">
                   Password
                   <span class="form-label-description">
-                    <a href="./forgot-password.html">Lupa Password</a>
+                    <a href="{{ env('APP_URL') }}/forgot-password">Lupa Password</a>
                   </span>
                 </label>
                 <div class="input-group input-group-flat">
-                  <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" required />
+                  <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" autocomplete="off" required />
                   <span class="input-group-text">
                     <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip"
                       ><!-- Download SVG icon from http://tabler.io/icons/icon/eye -->
@@ -94,6 +94,11 @@
                     ></a>
                   </span>
                 </div>
+                @error('password')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+                @enderror
               </div>
               <div class="form-footer">
                 <button type="submit" class="btn btn-primary w-100">Sign in</button>
@@ -119,7 +124,7 @@
             </div>
           </div>
         </div>
-        <div class="text-center text-secondary mt-3">Belum mempunyai akun? <a href="./sign-up.html" tabindex="-1">Sign up</a></div>
+        <div class="text-center text-secondary mt-3">Belum mempunyai akun? <a href="{{ env('APP_URL') }}/register" tabindex="-1">Sign up</a></div>
       </div>
     </div>
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->

@@ -27,7 +27,7 @@ class LoginController extends Controller
         }
 
         // Authentication failed, redirect back with error message
-        return back()->with('loginError', 'Login Tidak Berhasil! Silakan Periksa Kembali Email dan Password Anda.');
+        return back()->with('loginMassage', 'Login Tidak Berhasil! Silakan Periksa Kembali Email dan Password Anda.');
     }
 
     public function dashboard()
