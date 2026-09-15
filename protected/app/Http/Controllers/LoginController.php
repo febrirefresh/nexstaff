@@ -23,26 +23,22 @@ class LoginController extends Controller
         // Attempt to authenticate the user
         if (Auth::attempt($credentials)) {
             // Authentication passed, redirect to dashboard or intended page
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/home');
         }
 
         // Authentication failed, redirect back with error message
         return back()->with('loginMassage', 'Login Tidak Berhasil! Silakan Periksa Kembali Email dan Password Anda.');
     }
 
-    public function dashboard()
+    public function logout(Request $request)
     {
-        // Check if the user is authenticated
-        if (Auth::check()) {
-            return view('dashboard');
-        }
+        Auth::logout();
 
-        // If not authenticated, redirect to login page
+        // Invalidate the session and regenerate the CSRF token
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirect to the login page or any other desired page
         return redirect('/');
-    }
-
-    public function tes()
-    {
-        return view('tes');
     }
 }
