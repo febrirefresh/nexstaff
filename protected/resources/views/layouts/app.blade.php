@@ -242,8 +242,8 @@
                             <div class="col">
                                 <!-- BEGIN NAVBAR MENU -->
                                 <ul class="navbar-nav">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="./home">
+                                    <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('home') }}">
                                             <span
                                                 class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler.io/icons/icon/home -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -258,7 +258,8 @@
                                         </a>
                                     </li>
                                     @foreach ($menus as $m)
-                                        <li class="nav-item dropdown">
+                                        <li
+                                            class="nav-item {{ request()->is($m->tag . '*') ? 'active' : '' }} dropdown">
                                             <a class="nav-link dropdown-toggle" href="#navbar-base"
                                                 data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button"
                                                 aria-expanded="false">
@@ -272,7 +273,8 @@
                                                 <div class="dropdown-menu-columns">
                                                     <div class="dropdown-menu-column">
                                                         @foreach ($m->submenus as $sm)
-                                                            <a class="dropdown-item" href="{{ $sm->link }}">
+                                                            <a class="dropdown-item {{ request()->routeIs($sm->tag . '.*') ? 'active' : '' }}"
+                                                                href="{{ route($sm->route) }}">
                                                                 {{ $sm->name }}
                                                             </a>
                                                         @endforeach
@@ -291,13 +293,7 @@
         </header>
         <!-- END NAVBAR  -->
         <div class="page-wrapper">
-            <!-- BEGIN PAGE HEADER -->
-            <!-- END PAGE HEADER -->
-            <!-- BEGIN PAGE BODY -->
-            <div class="page-body">
-                @yield('content')
-            </div>
-            <!-- END PAGE BODY -->
+            @yield('content')
             <!--  BEGIN FOOTER  -->
             <footer class="footer footer-transparent d-print-none">
                 <div class="container-xl">
