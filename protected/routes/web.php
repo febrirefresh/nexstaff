@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -34,5 +35,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/{position}/edit', 'edit')->name('edit');
         Route::put('/{position}', 'update')->name('update');
         Route::delete('/{position}', 'destroy')->name('destroy');
+    });
+    // Employee routes
+    Route::controller(EmployeeController::class)->prefix('master/employee')->name('employees.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{employee}/edit', 'edit')->name('edit');
+        Route::put('/{employee}', 'update')->name('update');
+        Route::delete('/{employee}', 'destroy')->name('destroy');
     });
 });
